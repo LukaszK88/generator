@@ -14,16 +14,18 @@ use Generator\Validation\InputForms\RegisterUser;
 class AuthController extends Controller{
 
     public function getSignUp($request, $response){
-
+        
         return $this->view->render($response, 'auth/signup.twig');
     }
 
     public function postSignUp($request, $response){
 
         $valiation = $this->validator->validate($request,RegisterUser::rules());
-
+     
         if($valiation->fails()){
+
             return $response->withRedirect($this->router->pathFor('auth.signup'));
+
         }
 
         $user = User::create([

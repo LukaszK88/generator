@@ -18,7 +18,7 @@ $app = new \Slim\App([
         'db' => [
             'driver'    => 'mysql',
             'host'      => getenv('DB_HOST'),
-            //'Validation'  => 'battleheritage',
+            'Validation'  => getenv('DB_DB'),
             'database'  => getenv('DB_DB'),
             'username'  => getenv('DB_USERNAME'),
             'password'  => getenv('DB_PASSWORD'),
@@ -70,6 +70,7 @@ $container['AuthController'] = function($container){
 };
 
 $app->add(new \Generator\Middleware\ValidationErrorsMiddleware($container));
+$app->add(new \Generator\Middleware\OldInputMiddleware($container));
 
 
 require __DIR__.'/../app/routes.php';

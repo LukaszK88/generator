@@ -14,7 +14,7 @@ class RegisterUser{
     public static function rules(){
 
         return[
-            'email'=>v::noWhitespace()->notEmpty()->email(),
+            'email'=>v::noWhitespace()->notEmpty()->email()->emailAvailable(),
         ];
     }
 

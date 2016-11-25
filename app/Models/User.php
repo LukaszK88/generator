@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model{
 
+    protected $table = 'users';
+    
     protected $fillable=[
         'name',
         'username',
@@ -22,10 +24,13 @@ class User extends Model{
         'weight',
     ];
 
-    protected $table = 'users';
+    public function setPassword($password){
+        
+        $this->update([
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'temp_password' => ''
+        ]);
+        
+    }
 
-
-
-
-    
 }

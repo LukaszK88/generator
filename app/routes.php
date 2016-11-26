@@ -18,6 +18,11 @@ $app->group('',function(){
 
     $this->get('/auth/signin', 'AuthController:getSignIn')->setName('auth.signin');
     $this->post('/auth/signin', 'AuthController:postSignIn');
+
+    $this->get('/auth/password/forgot', 'PasswordController:getForgotPassword')->setName('auth.password.forgot');
+    $this->post('/auth/password/forgot', 'PasswordController:postForgotPassword');
+
+
 })->add(new GuestMiddleware($container));
 
 $app->group('',function(){

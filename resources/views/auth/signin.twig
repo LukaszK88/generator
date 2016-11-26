@@ -31,6 +31,10 @@
                                 <label>
                                     <input name="remember" type="checkbox" value="Remember Me">Remember Me
                                 </label>
+
+                                <label class="pull-right">
+                                   <a  href="{{ path_for('auth.password.forgot') }}" >Forgot password</a>
+                                </label>
                             </div>
 
                             <input type="submit" value="Sign in" class="btn btn-lg btn-success btn-block">

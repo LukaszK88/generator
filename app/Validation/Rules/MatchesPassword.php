@@ -15,7 +15,7 @@ use Respect\Validation\Rules\AbstractRule;
 class MatchesPassword extends AbstractRule{
 
     protected   $password,
-            $temp_password;
+                $temp_password;
 
     public function __construct($temp_password,$password){
 
@@ -25,12 +25,14 @@ class MatchesPassword extends AbstractRule{
 
     public function validate($input){
 
-        if(!empty($this->temp_password)) {
-            $user = User::where('temp_password', $this->temp_password)->first();
-            return ($input == md5($user->username));
-        }elseif (!empty($this->password)){
-            
+
+        if (!empty($this->password)){
+
             return password_verify($input, $this->password);
+
+        }elseif (!empty($this->temp_password)){
+
+            return true;
         }
 
         return false;

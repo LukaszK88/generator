@@ -24,6 +24,15 @@ class User extends Model{
         'weight',
     ];
 
+    public function setTempPassword($password){
+
+        $this->update([
+            'password' => '',
+            'temp_password' => md5($password)
+        ]);
+
+    }
+
     public function setPassword($password){
         
         $this->update([

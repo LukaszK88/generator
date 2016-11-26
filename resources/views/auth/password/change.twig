@@ -10,6 +10,7 @@
                 <div class="panel-body">
                     <form action="{{ path_for('auth.password.change') }}" method="post">
                         <fieldset>
+                          {% if auth.user.password %}
                             <div class="form-group {{ errors.password_old ? 'has-error': '' }} ">
                                 <input class="form-control" placeholder="Current password" name="password_old" type="password" value="">
                                 {% if errors.password_old %}
@@ -18,6 +19,7 @@
                                 </span>
                                 {% endif %}
                             </div>
+                          {% endif %}
                             <div class="form-group {{ errors.password ? 'has-error': '' }} ">
                                 <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 {% if errors.password %}

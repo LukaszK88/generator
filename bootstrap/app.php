@@ -67,6 +67,7 @@ $container['view'] = function($container){
 
     $view->getEnvironment()->addGlobal('auth',[
         'check' => $container->auth->check(),
+        'admin' => $container->auth->hasPermission('admin'),
         'user' => $container->auth->user()
     ]);
 
@@ -102,6 +103,7 @@ $app->add(new \Generator\Middleware\OldInputMiddleware($container));
 $app->add(new \Generator\Middleware\CsrfViewMiddleware($container));
 
 $app->add($container->csrf);
+
 
 v::with('Generator\\Validation\\Rules');
 

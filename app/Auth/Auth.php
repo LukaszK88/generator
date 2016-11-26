@@ -10,6 +10,8 @@ namespace Generator\Auth;
 
 use Generator\Models\User;
 
+use Illuminate\Database\Capsule\Manager as DB;
+
 class Auth{
 
     public function user(){
@@ -32,8 +34,12 @@ class Auth{
         }
 
         if(password_verify($password,$user->password) or ($user->temp_password == md5($email))){
-
+            
             $_SESSION['user'] = $user->id;
+
+                if($this->hasPermission('admin')){
+                    $_SESSION['admin'] = 'administrator';
+                }
 
             return true;
         }
@@ -42,8 +48,23 @@ class Auth{
 
     }
 
+    public function hasPermission($key){
+        $group = DB::table('groups')->where('id',$this->user()->role)->get();
+
+        if($group->count()){
+            $permissions= json_decode($group->first()->permission,true);
+
+            if($permissions[$key]==true) {
+                return true;
+
+            }
+        }
+        return false;
+    }
+
     public function logOut(){
         
         unset($_SESSION['user']);
+        unset($_SESSION['admin']);
     }
 }

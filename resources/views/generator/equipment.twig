@@ -1,0 +1,17 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+    {% if part.part %}
+        {% include 'generator/partials/index.twig' %}
+    {% endif %}
+    {% if part.level %}
+        {% include 'generator/partials/level.twig' %}
+    {% endif %}
+
+
+        <input type="checkbox" class="btn btn-default">bodyweight
+        <input  type="checkbox" class="btn btn-default">dumbell
+        <input type="checkbox" class="btn btn-default">barbell
+
+
+{% endblock %}

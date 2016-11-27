@@ -96,6 +96,9 @@ $container['csrf'] = function($container){
     return new \Slim\Csrf\Guard();
 };
 
+$container['GeneratorController'] = function($container){
+    return new \Generator\Controllers\Generator\GeneratorController($container);
+};
 
 
 $app->add(new \Generator\Middleware\ValidationErrorsMiddleware($container));

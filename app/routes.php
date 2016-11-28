@@ -31,8 +31,10 @@ $app->group('',function(){
     $this->get('/auth/password/change', 'PasswordController:getChangePassword')->setName('auth.password.change');
     $this->post('/auth/password/change', 'PasswordController:postChangePassword');
 
-    $this->get('/generator', 'GeneratorController:index')->setName('generator');
-    $this->get('/generator/{part}', 'GeneratorController:getLevel')->setName('generator.level');
-    $this->get('/generator/{part}/{level}', 'GeneratorController:getEquipment')->setName('generator.equipment');
+    $this->get('/generator[/{part}[/{aim}[/{level}[/{equipment:.*}]]]]', 'GeneratorController:index')->setName('generator');
+
+    $this->post('/generator/{part}/{aim}/{level}', 'GeneratorController:postEquipment');
+    $this->post('/generator/{part}/{level}', 'GeneratorController:postEquipment');
+
 })->add(new AuthMiddleware($container));
 

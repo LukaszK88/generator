@@ -1,0 +1,5 @@
+<div class="btn-group" role="group" aria-label="...">
+    <a href="{{ path_for('generator',{part: part | first,aim: part.aim, level: 'easy'}) }}" type="button" class="btn btn-default">easy</a>
+    <a href="{{ path_for('generator',{part: part | first,aim: part.aim, level: 'medium'}) }}" type="button" class="btn btn-default">medium</a>
+    <a href="{{ path_for('generator',{part: part | first,aim: part.aim, level: 'hard'}) }}" type="button" class="btn btn-default">hard</a>
+</div>

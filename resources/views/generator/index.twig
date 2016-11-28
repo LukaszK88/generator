@@ -1,11 +1,36 @@
 {% extends 'templates/app.twig' %}
 
 {% block content %}
-
     <div class="btn-group" role="group" aria-label="...">
-        <a href="{{ path_for('generator.level',{part: 'legs'}) }}" type="button" class="btn btn-default">Legs</a>
-        <a href="{{ path_for('generator.level',{part: 'upperbody'}) }}" type="button" class="btn btn-default">Upper</a>
-        <a href="{{ path_for('generator.level',{part: 'core'}) }}" type="button" class="btn btn-default">core</a>
+        <a href="{{ path_for('generator',{part: 'legs'}) }}" type="button" class="btn btn-default">Legs</a>
+        <a href="{{ path_for('generator',{part: 'upperbody'}) }}" type="button" class="btn btn-default">Upper</a>
+        <a href="{{ path_for('generator',{part: 'core'}) }}" type="button" class="btn btn-default">core</a>
     </div>
+    {% if part.part == 'legs' or  part.part == 'upperbody' %}
+        {% include 'generator/partials/aim.twig' %}
+
+        {% if part.aim %}
+            {% include 'generator/partials/levelaim.twig' %}
+        {% endif %}
+            {% if part.level %}
+                {% include 'generator/partials/equipmentaim.twig' %}
+            {% endif %}
+                {% if part.equipment %}
+                    {% include 'generator/partials/workout.twig' %}
+                {% endif %}
+
+    {% else %}
+    {% if part.part == 'core'%}
+        {% include 'generator/partials/level.twig' %}
+    {% endif %}
+
+
+    {% if part.level %}
+        {% include 'generator/partials/equipment.twig' %}
+    {% endif %}
+    {% if part.equipment %}
+        {% include 'generator/partials/workout.twig' %}
+    {% endif %}
+    {% endif %}
 
 {% endblock %}

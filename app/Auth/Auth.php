@@ -49,17 +49,19 @@ class Auth{
     }
 
     public function hasPermission($key){
-        $group = DB::table('groups')->where('id',$this->user()->role)->get();
+        if($this->check()) {
+            $group = DB::table('groups')->where('id', $this->user()->role)->get();
 
-        if($group->count()){
-            $permissions= json_decode($group->first()->permission,true);
+            if ($group->count()) {
+                $permissions = json_decode($group->first()->permission, true);
 
-            if($permissions[$key]==true) {
-                return true;
+                if ($permissions[$key] == true) {
+                    return true;
 
+                }
             }
+            return false;
         }
-        return false;
     }
 
     public function logOut(){

@@ -51,6 +51,10 @@ $container['auth'] = function($container){
     return new \Generator\Auth\Auth();
 };
 
+$container['levels'] = function($container){
+    return new \Generator\Models\Levels();
+};
+
 $container['flash'] = function($container){
     return new \Slim\Flash\Messages();
 };

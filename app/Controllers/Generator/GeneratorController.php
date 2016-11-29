@@ -7,6 +7,8 @@
  */
 namespace Generator\Controllers\Generator;
 
+use Generator\Models\Core;
+use Generator\Models\User;
 use Slim\Views\Twig as View;
 use Generator\Controllers\Controller;
 use Respect\Validation\Validator as v;
@@ -17,6 +19,9 @@ class GeneratorController extends Controller{
 
 
     public function index($request,$response,$part){
+
+
+
        
         if(!empty($part['level'])) {
             if ($part['level'] == 'easy') {
@@ -28,6 +33,8 @@ class GeneratorController extends Controller{
             if ($part['level'] == 'hard') {
                 $level = 5;
             }
+
+            $levelId = $this->levels->getLevelId($part['level']);
         }
 
         if(!empty($part['equipment'])) {
@@ -36,7 +43,7 @@ class GeneratorController extends Controller{
 
             $sql = DB::table($part['part']);
             foreach ($equipmentArray as $equipment) {
-                $sql->orWhere($equipment, '=', 1);
+                $sql->orWhere($equipment, '=', 1)->where('level_id',$levelId->id);
             }
             $workout = $sql->inRandomOrder()->limit($level)->get();
 
@@ -72,12 +79,12 @@ class GeneratorController extends Controller{
 
             if ($validation->fails()) {
 
-                return $response->withRedirect($this->router->pathFor('generator', ['part' => $part['part'], 'level' => $part['level']]));
+                return $response->withRedirect($this->router->pathFor('generator.level', ['part' => $part['part'], 'level' => $part['level']]));
             }
 
             $equipment = implode('/', $request->getParam('equipment'));
 
-            return $response->withRedirect($this->router->pathFor('generator', ['part' => $part['part'], 'level' => $part['level'], 'equipment' => $equipment]));
+            return $response->withRedirect($this->router->pathFor('generator.level', ['part' => $part['part'], 'level' => $part['level'], 'equipment' => $equipment]));
         }
     }
 }

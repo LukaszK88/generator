@@ -7,13 +7,13 @@
         <a href="{{ path_for('generator',{part: 'core'}) }}" type="button" class="btn btn-default">core</a>
     </div>
     {% if part.part == 'legs' or  part.part == 'upperbody' %}
-        {% include 'generator/partials/aim.twig' %}
+        {% include 'generator/partials/aim/aim.twig' %}
 
         {% if part.aim %}
-            {% include 'generator/partials/levelaim.twig' %}
+            {% include 'generator/partials/aim/level.twig' %}
         {% endif %}
             {% if part.level %}
-                {% include 'generator/partials/equipmentaim.twig' %}
+                {% include 'generator/partials/aim/equipment.twig' %}
             {% endif %}
                 {% if part.equipment %}
                     {% include 'generator/partials/workout.twig' %}
@@ -22,14 +22,13 @@
     {% else %}
     {% if part.part == 'core'%}
         {% include 'generator/partials/level.twig' %}
-    {% endif %}
 
-
-    {% if part.level %}
-        {% include 'generator/partials/equipment.twig' %}
-    {% endif %}
-    {% if part.equipment %}
-        {% include 'generator/partials/workout.twig' %}
+        {% if part.level %}
+            {% include 'generator/partials/core/equipment.twig' %}
+        {% endif %}
+        {% if part.equipment %}
+            {% include 'generator/partials/workout.twig' %}
+        {% endif %}
     {% endif %}
     {% endif %}
 

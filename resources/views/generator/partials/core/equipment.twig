@@ -1,12 +1,17 @@
-<form action="{{ path_for('generator.level',{part: part.part, level: part.level}) }}" method="post">
+<form action="{{ path_for('generator.level',{part: param.part, level: param.level}) }}" method="post">
+    <div class="checkbox">
+    <input type="checkbox" name="equipment[]" value="bodyweight" {% if 'bodyweight' in param.equipment %}checked {% endif %}>Bodyweight
+    </div>
+    <div class="checkbox">
+    <input type="checkbox" name="equipment[]" value="fitball"  {% if 'fitball' in param.equipment %}checked {% endif %}>Fitball
+    </div>
+    <div class="checkbox">
+    <input type="checkbox" name="equipment[]" value="trx" {% if 'trx' in param.equipment %}checked {% endif %}>Trx
+    </div>
+        <div class="checkbox">
+    <input type="checkbox" name="equipment[]" value="medball" {% if 'medball' in param.equipment %}checked {% endif %}>Medball
+        </div>
 
-    <input type="checkbox" name="equipment[]" value="bodyweight">Bodyweight
-
-    <input type="checkbox" name="equipment[]" value="fitball">Fitball
-
-    <input type="checkbox" name="equipment[]" value="trx">Trx
-
-    <input type="checkbox" name="equipment[]" value="medball">Medball
     {% if errors.equipment %}
         <span class="help-block">
                 {{ errors.equipment | first }}

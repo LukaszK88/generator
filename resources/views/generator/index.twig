@@ -1,32 +1,37 @@
 {% extends 'templates/app.twig' %}
 
 {% block content %}
-    <div class="btn-group" role="group" aria-label="...">
-        <a href="{{ path_for('generator',{part: 'legs'}) }}" type="button" class="btn btn-default">Legs</a>
-        <a href="{{ path_for('generator',{part: 'upperbody'}) }}" type="button" class="btn btn-default">Upper</a>
-        <a href="{{ path_for('generator',{part: 'core'}) }}" type="button" class="btn btn-default">core</a>
+    <div class="col-md-2">
+    <div class="btn-group btn-group-lg" role="group" aria-label="...">
+        <a href="{{ path_for('generator',{part: 'legs'}) }}" type="button" class="btn {{ param.part == 'legs' ? 'btn-danger': 'btn-success' }}">Legs</a>
+        <a href="{{ path_for('generator',{part: 'upperbody'}) }}" type="button" class="btn {{ param.part == 'upperbody' ? 'btn-danger': 'btn-success' }}">Upper</a>
+        <a href="{{ path_for('generator',{part: 'core'}) }}" type="button" class="btn {{ param.part == 'core' ? 'btn-danger': 'btn-success' }} ">Core</a>
     </div>
-    {% if part.part == 'legs' or  part.part == 'upperbody' %}
+    </div>
+    {% if param.part == 'legs' or  param.part == 'upperbody' %}
+        <div class="col-md-3">
         {% include 'generator/partials/aim/aim.twig' %}
-
-        {% if part.aim %}
+        </div>
+        {% if param.aim %}
+            <div class="col-md-3">
             {% include 'generator/partials/aim/level.twig' %}
+            </div>
         {% endif %}
-            {% if part.level %}
+            {% if param.level %}
                 {% include 'generator/partials/aim/equipment.twig' %}
             {% endif %}
-                {% if part.equipment %}
+                {% if param.equipment %}
                     {% include 'generator/partials/workout.twig' %}
                 {% endif %}
 
     {% else %}
-    {% if part.part == 'core'%}
-        {% include 'generator/partials/level.twig' %}
+    {% if param.part == 'core'%}
+        {% include 'generator/partials/core/level.twig' %}
 
-        {% if part.level %}
+        {% if param.level %}
             {% include 'generator/partials/core/equipment.twig' %}
         {% endif %}
-        {% if part.equipment %}
+        {% if param.equipment %}
             {% include 'generator/partials/workout.twig' %}
         {% endif %}
     {% endif %}

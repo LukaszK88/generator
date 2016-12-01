@@ -1,5 +1,5 @@
-<div class="btn-group" role="group" aria-label="...">
-    <a href="{{ path_for('generator',{part: part | first, aim: 'size'}) }}" type="button" class="btn btn-default">size</a>
-    <a href="{{ path_for('generator',{part: part | first, aim: 'strength'}) }}" type="button" class="btn btn-default">strength</a>
-    <a href="{{ path_for('generator',{part: part | first, aim: 'endurance'}) }}" type="button" class="btn btn-default">endurance</a>
+<div class="btn-group btn-group-lg" role="group" aria-label="...">
+    <a href="{{ path_for('generator',{part: param.part, aim: 'size'}) }}" type="button" class="btn {{ param.aim == 'size' ? 'btn-danger': 'btn-success' }}">size</a>
+    <a href="{{ path_for('generator',{part: param.part, aim: 'strength'}) }}" type="button" class="btn {{ param.aim == 'strength' ? 'btn-danger': 'btn-success' }}">strength</a>
+    <a href="{{ path_for('generator',{part: param.part, aim: 'endurance'}) }}" type="button" class="btn {{ param.aim == 'endurance' ? 'btn-danger': 'btn-success' }}">endurance</a>
 </div>

@@ -43,6 +43,10 @@ $capsule->addConnection($container['settings']['db']);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
+
+
+
+
 $container['db'] = function($container) use ($capsule){
     return $capsule;
 };
@@ -77,6 +81,7 @@ $container['view'] = function($container){
 
     $view->getEnvironment()->addGlobal('flash',$container->flash);
 
+
     return $view;
 };
 
@@ -110,6 +115,8 @@ $app->add(new \Generator\Middleware\OldInputMiddleware($container));
 $app->add(new \Generator\Middleware\CsrfViewMiddleware($container));
 
 $app->add($container->csrf);
+
+
 
 
 v::with('Generator\\Validation\\Rules');

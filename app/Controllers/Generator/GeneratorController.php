@@ -18,73 +18,73 @@ use Illuminate\Database\Capsule\Manager as DB;
 class GeneratorController extends Controller{
 
 
-    public function index($request,$response,$part){
+    public function index($request,$response,$param){
 
 
 
        
-        if(!empty($part['level'])) {
-            if ($part['level'] == 'easy') {
-                $level = 3;
+        if(!empty($param['level'])) {
+            if ($param['level'] == 'easy') {
+                $limit = 3;
             }
-            if ($part['level'] == 'medium') {
-                $level = 4;
+            if ($param['level'] == 'medium') {
+                $limit = 4;
             }
-            if ($part['level'] == 'hard') {
-                $level = 5;
+            if ($param['level'] == 'hard') {
+                $limit = 5;
             }
 
-            $levelId = $this->levels->getLevelId($part['level']);
+            $levelId = $this->levels->getLevelId($param['level']);
         }
 
-        if(!empty($part['equipment'])) {
-            $equipmentArray = explode('/', $part['equipment']);
+        if(!empty($param['equipment'])) {
+            $equipmentArray = explode('/', $param['equipment']);
 
 
-            $sql = DB::table($part['part']);
+            $sql = DB::table($param['part']);
             foreach ($equipmentArray as $equipment) {
                 $sql->orWhere($equipment, '=', 1)->where('level_id',$levelId->id);
             }
-            $workout = $sql->inRandomOrder()->limit($level)->get();
-
+            $workout = $sql->inRandomOrder()->limit($limit)->get();
+          
         }else{
             $workout='';
         }
 
 
         return $this->view->render($response, 'generator/index.twig',[
-            'part'=> $part,
+            'param'=> $param,
             'workout' => $workout
         ]);
     }
 
-    public function postEquipment($request,$response,$part)
+    public function postEquipment($request,$response,$param)
     {
 
         $validation = $this->validator->validate($request, [
             'equipment' => v::notEmpty()
         ]);
 
-        if (!empty($part['aim'])) {
+        if (!empty($param['aim'])) {
             if ($validation->fails()) {
 
-                return $response->withRedirect($this->router->pathFor('generator', ['part' => $part['part'],'aim'=>$part['aim'], 'level' => $part['level']]));
+                return $response->withRedirect($this->router->pathFor('generator', ['part' => $param['part'],'aim'=>$param['aim'], 'level' => $param['level']]));
             }
 
             $equipment = implode('/', $request->getParam('equipment'));
 
-            return $response->withRedirect($this->router->pathFor('generator', ['part' => $part['part'],'aim'=>$part['aim'],  'level' => $part['level'], 'equipment' => $equipment]));
+            return $response->withRedirect($this->router->pathFor('generator', ['part' => $param['part'],'aim'=>$param['aim'],  'level' => $param['level'], 'equipment' => $equipment]));
         } else {
 
 
             if ($validation->fails()) {
 
-                return $response->withRedirect($this->router->pathFor('generator.level', ['part' => $part['part'], 'level' => $part['level']]));
+                return $response->withRedirect($this->router->pathFor('generator.level', ['part' => $param['part'], 'level' => $param['level']]));
             }
 
             $equipment = implode('/', $request->getParam('equipment'));
 
-            return $response->withRedirect($this->router->pathFor('generator.level', ['part' => $part['part'], 'level' => $part['level'], 'equipment' => $equipment]));
+            return $response->withRedirect($this->router->pathFor('generator.level', ['part' => $param['part'], 'level' => $param['level'], 'equipment' => $equipment]));
         }
     }
 }

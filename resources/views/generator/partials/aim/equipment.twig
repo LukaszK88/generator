@@ -1,10 +1,10 @@
-<form action="{{ path_for('generator',{part: part.part , aim: part.aim , level: part.level}) }}" method="post">
+<form action="{{ path_for('generator',{part: param.part , aim: param.aim , level: param.level}) }}" method="post">
 
-    <input type="checkbox" name="equipment[]" value="bodyweight">Bodyweight
+    <input type="checkbox" name="equipment[]" value="bodyweight" {% if 'bodyweight' in param.equipment %}checked {% endif %}>Bodyweight
 
-    <input type="checkbox" name="equipment[]" value="dumbbells">Dumbbell
+    <input type="checkbox" name="equipment[]" value="dumbbells" {% if 'dumbbells' in param.equipment %}checked {% endif %}>Dumbbell
 
-    <input type="checkbox" name="equipment[]" value="barbell">Barbell
+    <input type="checkbox" name="equipment[]" value="barbell" {% if 'barbell' in param.equipment %}checked {% endif %}>Barbell
     {% if errors.equipment %}
         <span class="help-block">
                 {{ errors.equipment | first }}

@@ -1,0 +1,6 @@
+<div class="btn-group btn-group-lg" role="group" aria-label="...">
+    <a href="{{ path_for('generator.level',{part: param.part , level: 'easy'}) }}" type="button" class="btn {{ param.level == 'easy' ? 'btn-danger': 'btn-success' }}">easy</a>
+    <a href="{{ path_for('generator.level',{part: param.part , level: 'medium'}) }}" type="button" class="btn {{ param.level == 'medium' ? 'btn-danger': 'btn-success' }}">medium</a>
+    <a href="{{ path_for('generator.level',{part: param.part , level: 'hard'}) }}" type="button" class="btn  {{ param.level == 'hard' ? 'btn-danger': 'btn-success' }}">hard</a>
+</div>
+

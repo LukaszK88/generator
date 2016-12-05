@@ -13,10 +13,4 @@ class Core extends Model{
 
     protected $table = 'core';
     
-
-    public function level(){
-
-        return $this->hasOne('Generator\models\Levels','id');
-    }
-
 }

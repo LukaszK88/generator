@@ -1,0 +1,25 @@
+<h3 class="text center">Your workout :</h3><br>
+<div class="btn-group-md" aria-label="...">
+   {% for exercise in workout %}
+      <a href="#" class="btn btn-success" >{{ exercise.exercise}}</a><a href="#" class="btn btn-success" >{{ exercise.type_id == '1' ? '4': '3' }}
+      x {% if param.aim == 'size' %}
+               8-12
+         {% elseif param.aim == 'endurance' %}
+               {% if exercise.bodyweight %}
+                  {% if param.level == 'easy' %}
+                     30s
+                     {% elseif param.level == 'medium' %}
+                        45s
+                        {% elseif param.level == 'hard' %}
+                           60s
+                  {% endif %}
+               {% else %}
+                  12-15
+               {% endif %}
+         {% elseif param.aim == 'strength' %}
+               6-8
+         {% endif %}
+
+   </a><br>
+   {% endfor %}
+</div>

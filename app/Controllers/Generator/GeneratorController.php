@@ -16,6 +16,8 @@ use Illuminate\Database\Capsule\Manager as DB;
 
 
 class GeneratorController extends Controller{
+    
+    public $reps = '';
 
 
     public function index($request,$response,$param){
@@ -25,16 +27,16 @@ class GeneratorController extends Controller{
        
         if(!empty($param['level'])) {
             if ($param['level'] == 'easy') {
-                $limit = 3;
-            }
-            if ($param['level'] == 'medium') {
                 $limit = 4;
             }
-            if ($param['level'] == 'hard') {
+            if ($param['level'] == 'medium') {
                 $limit = 5;
             }
+            if ($param['level'] == 'hard') {
+                $limit = 6;
+            }
 
-            $levelId = $this->levels->getLevelId($param['level']);
+
         }
 
         if(!empty($param['equipment'])) {
@@ -43,18 +45,20 @@ class GeneratorController extends Controller{
 
             $sql = DB::table($param['part']);
             foreach ($equipmentArray as $equipment) {
-                $sql->orWhere($equipment, '=', 1)->where('level_id',$levelId->id);
+                $sql->orWhere($equipment, '=', 1);
             }
-            $workout = $sql->inRandomOrder()->limit($limit)->get();
-          
+            $workout = $sql->inRandomOrder()->limit($limit)->get()->sortBy('type_id');
+
         }else{
             $workout='';
         }
+        
 
 
         return $this->view->render($response, 'generator/index.twig',[
             'param'=> $param,
-            'workout' => $workout
+            'workout' => $workout,
+            'reps' =>$this->reps
         ]);
     }
 

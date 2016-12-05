@@ -18,6 +18,7 @@ class Auth{
         if($this->check()) {
             return User::find($_SESSION['user']);
         }
+        return false;
     }
 
     public function check(){
@@ -49,7 +50,8 @@ class Auth{
     }
 
     public function hasPermission($key){
-        if($this->check()) {
+        if($this->user()) {
+              
             $group = DB::table('groups')->where('id', $this->user()->role)->get();
 
             if ($group->count()) {
